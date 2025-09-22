@@ -21,13 +21,13 @@ public class Taller05Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		// Long docId = svc.crearDocenteConOficina();
-		// Long asiId = svc.asegurarAsignaturaBase();
-		// Long espId = svc.asegurarEspacioBase();
-		// Long curId = svc.crearCurso(asiId, docId);
-		// svc.crearFranja(curId, espId, docId);
-		// svc.consultarFranjasPorCurso(curId);
-		// svc.consultarFranjasPorDocente(docId);
-		// svc.eliminarCursoEnCascada(curId);
+		Long docId = svc.crearDocenteConOficina();
+		Long asiId = svc.asegurarAsignaturaBase();
+		Long espId = svc.asegurarEspacioBase();
+		Long curId = svc.crearCurso(asiId, docId);
+		svc.crearFranja(curId, espId, docId);
+		svc.consultarFranjasPorCurso(curId);
+		svc.consultarFranjasPorDocente(docId);
+		svc.eliminarCursoEnCascada(curId);
 	}
 }
