@@ -19,6 +19,6 @@ public interface FranjaHorariaRepository extends JpaRepository<FranjaHoraria, Lo
     List<FranjaHoraria> findByFraCurso_CurId(Long cursoId);
 
     /** (v 1.0) Consulta de franjas por docente: EAGER solo curso (espacio LAZY). */
-    @EntityGraph(attributePaths = { "fraCurso" })
-    List<FranjaHoraria> findByFraDocente_PerId(Long docenteId);
+    // @EntityGraph(attributePaths = { "fraCurso" })
+    // List<FranjaHoraria> findByFraDocente_ocId(Long docId);
 }

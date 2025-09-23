@@ -1,6 +1,8 @@
 package co.edu.unicauca.asae.taller05.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @brief Subclase de Persona para docentes.
@@ -10,22 +12,14 @@ import jakarta.persistence.*;
  *          (Ver relaciones 1–1 y tipos de cascada en JPA/Hibernate).
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "docente")
+@PrimaryKeyJoinColumn(name = "docId")
 public class Docente extends Persona {
 
-    /**
-     * Oficina asignada (opcional). Se usa columna foránea en docentes.oficina_id.
-     */
     @OneToOne(optional = true, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "oficina_id", unique = true)
     private Oficina docOficina;
 
-    // ===== Getters & Setters =====
-    public Oficina getDocOficina() {
-        return docOficina;
-    }
-
-    public void setDocOficina(Oficina docOficina) {
-        this.docOficina = docOficina;
-    }
 }

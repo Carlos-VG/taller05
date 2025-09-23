@@ -1,6 +1,8 @@
 package co.edu.unicauca.asae.taller05.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @brief Entidad base de la jerarquía de personas.
@@ -10,6 +12,8 @@ import jakarta.persistence.*;
  *          Referencia: herencia en JPA SINGLE_TABLE / JOINED / TABLE_PER_CLASS.
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "persona", uniqueConstraints = @UniqueConstraint(columnNames = "perCorreo"))
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Persona {
@@ -30,33 +34,4 @@ public abstract class Persona {
     /** Correo institucional o personal único (obligatorio). */
     @Column(nullable = false, unique = true, length = 120)
     private String perCorreo;
-
-    // ===== Getters & Setters (JavaBean) =====
-    public Long getPerId() {
-        return perId;
-    }
-
-    public String getPerNombres() {
-        return perNombres;
-    }
-
-    public void setPerNombres(String perNombres) {
-        this.perNombres = perNombres;
-    }
-
-    public String getPerApellidos() {
-        return perApellidos;
-    }
-
-    public void setPerApellidos(String perApellidos) {
-        this.perApellidos = perApellidos;
-    }
-
-    public String getPerCorreo() {
-        return perCorreo;
-    }
-
-    public void setPerCorreo(String perCorreo) {
-        this.perCorreo = perCorreo;
-    }
 }

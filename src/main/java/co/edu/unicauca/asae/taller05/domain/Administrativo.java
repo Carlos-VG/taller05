@@ -1,6 +1,8 @@
 package co.edu.unicauca.asae.taller05.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @brief Subclase de Persona para administrativos.
@@ -8,7 +10,12 @@ import jakarta.persistence.*;
  *          lógica adicional.
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "administrativo")
+@PrimaryKeyJoinColumn(name = "admId")
 public class Administrativo extends Persona {
-    // Intencionalmente vacío: el taller no exige más campos aquí.
+
+    @Column(length = 255, nullable = false)
+    private String rol;
 }

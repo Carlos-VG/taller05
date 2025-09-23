@@ -1,6 +1,8 @@
 package co.edu.unicauca.asae.taller05.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @brief Oficina asociable a un Docente.
@@ -9,6 +11,8 @@ import jakarta.persistence.*;
  *          (Ver @Column y detalles de tabla/columnas en JPA).
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "oficina", uniqueConstraints = @UniqueConstraint(columnNames = "ofiNombre"))
 public class Oficina {
 
@@ -25,36 +29,4 @@ public class Oficina {
     @Column(length = 120)
     private String ofiUbicacion;
 
-    /** Extensión telefónica interna (máx. 10). */
-    @Column(length = 10)
-    private String ofiExtension;
-
-    // ===== Getters & Setters =====
-    public Long getOfiId() {
-        return ofiId;
-    }
-
-    public String getOfiNombre() {
-        return ofiNombre;
-    }
-
-    public void setOfiNombre(String ofiNombre) {
-        this.ofiNombre = ofiNombre;
-    }
-
-    public String getOfiUbicacion() {
-        return ofiUbicacion;
-    }
-
-    public void setOfiUbicacion(String ofiUbicacion) {
-        this.ofiUbicacion = ofiUbicacion;
-    }
-
-    public String getOfiExtension() {
-        return ofiExtension;
-    }
-
-    public void setOfiExtension(String ofiExtension) {
-        this.ofiExtension = ofiExtension;
-    }
 }

@@ -39,7 +39,6 @@ public class Taller05UseCases {
         Oficina ofi = new Oficina();
         ofi.setOfiNombre("Oficina 3-201");
         ofi.setOfiUbicacion("Bloque 3 - Piso 2");
-        ofi.setOfiExtension("3201");
 
         doc.setDocOficina(ofi);
         Docente saved = docenteRepo.save(doc);
@@ -50,7 +49,7 @@ public class Taller05UseCases {
 
     /** Si no hay asignaturas, crea una. */
     @Transactional
-    public Long asegurarAsignaturaBase() {
+    public int asegurarAsignaturaBase() {
         List<Asignatura> todas = asignaturaRepo.findAll();
         if (!todas.isEmpty())
             return todas.get(0).getAsiId();
@@ -67,7 +66,6 @@ public class Taller05UseCases {
             return todos.get(0).getEspId();
         EspacioFisico e = new EspacioFisico();
         e.setEspNombre("Aula Tulcán 101");
-        e.setEspUbicacion("Bloque Tulcán - Piso 1");
         e.setEspCapacidad(40);
         return espacioRepo.save(e).getEspId();
     }
@@ -93,7 +91,6 @@ public class Taller05UseCases {
         fra.setFraHoraFin(LocalTime.of(12, 0));
         fra.setFraCurso(cursoRepo.getReferenceById(cursoId));
         fra.setFraEspacioFisico(espacioRepo.getReferenceById(espacioId));
-        fra.setFraDocente(docenteRepo.getReferenceById(docenteId));
         Long id = franjaRepo.save(fra).getFraId();
         System.out.println("[OK] Franja creada -> id=" + id);
     }
@@ -109,22 +106,22 @@ public class Taller05UseCases {
             System.out.printf("- %s %s-%s | Curso: %s | Docente: %s %s | Espacio: %s%n",
                     f.getFraDia(), f.getFraHoraInicio(), f.getFraHoraFin(),
                     f.getFraCurso().getCurNombre(),
-                    f.getFraDocente().getPerNombres(), f.getFraDocente().getPerApellidos(),
                     f.getFraEspacioFisico().getEspNombre()); // aquí LAZY funciona porque hay sesión
         }
     }
 
     /** v1.0: Consulta por docente (curso EAGER; espacio LAZY hasta getter). */
-    @Transactional(readOnly = true)
-    public void consultarFranjasPorDocente(Long docenteId) {
-        System.out.println("== Franjas del docente " + docenteId + " ==");
-        for (FranjaHoraria f : franjaRepo.findByFraDocente_PerId(docenteId)) {
-            String espacio = f.getFraEspacioFisico().getEspNombre(); // LAZY pero con sesión abierta
-            System.out.printf("- %s %s-%s | Curso: %s | Espacio: %s%n",
-                    f.getFraDia(), f.getFraHoraInicio(), f.getFraHoraFin(),
-                    f.getFraCurso().getCurNombre(), espacio);
-        }
-    }
+    // @Transactional(readOnly = true)
+    // public void consultarFranjasPorDocente(Long docenteId) {
+    // System.out.println("== Franjas del docente " + docenteId + " ==");
+    // for (FranjaHoraria f : franjaRepo.findByFraDocente_DocId(docenteId)) {
+    // String espacio = f.getFraEspacioFisico().getEspNombre(); // LAZY pero con
+    // sesión abierta
+    // System.out.printf("- %s %s-%s | Curso: %s | Espacio: %s%n",
+    // f.getFraDia(), f.getFraHoraInicio(), f.getFraHoraFin(),
+    // f.getFraCurso().getCurNombre(), espacio);
+    // }
+    // }
 
     /** v0.5: Eliminar curso (cascade REMOVE borra franjas). */
     @Transactional

@@ -1,6 +1,9 @@
 package co.edu.unicauca.asae.taller05.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.*;
 
 /**
@@ -10,6 +13,8 @@ import java.util.*;
  *          de eliminación del curso y sus franjas en cascada.
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "curso")
 public class Curso {
 
@@ -40,32 +45,4 @@ public class Curso {
     @OneToMany(mappedBy = "fraCurso", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<FranjaHoraria> curFranjas = new ArrayList<>();
 
-    // ===== Getters & Setters =====
-    public Long getCurId() {
-        return curId;
-    }
-
-    public String getCurNombre() {
-        return curNombre;
-    }
-
-    public void setCurNombre(String curNombre) {
-        this.curNombre = curNombre;
-    }
-
-    public Asignatura getCurAsignatura() {
-        return curAsignatura;
-    }
-
-    public void setCurAsignatura(Asignatura curAsignatura) {
-        this.curAsignatura = curAsignatura;
-    }
-
-    public Set<Docente> getCurDocentes() {
-        return curDocentes;
-    }
-
-    public List<FranjaHoraria> getCurFranjas() {
-        return curFranjas;
-    }
 }

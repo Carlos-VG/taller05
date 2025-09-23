@@ -1,6 +1,9 @@
 package co.edu.unicauca.asae.taller05.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalTime;
 
 /**
@@ -10,6 +13,8 @@ import java.time.LocalTime;
  *          repositorio).
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "franja_horaria")
 public class FranjaHoraria {
 
@@ -41,61 +46,4 @@ public class FranjaHoraria {
     @JoinColumn(name = "espacio_id")
     private EspacioFisico fraEspacioFisico;
 
-    /** Docente asignado (obligatorio). */
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "docente_id")
-    private Docente fraDocente;
-
-    // ===== Getters & Setters =====
-    public Long getFraId() {
-        return fraId;
-    }
-
-    public DiaSemana getFraDia() {
-        return fraDia;
-    }
-
-    public void setFraDia(DiaSemana fraDia) {
-        this.fraDia = fraDia;
-    }
-
-    public LocalTime getFraHoraInicio() {
-        return fraHoraInicio;
-    }
-
-    public void setFraHoraInicio(LocalTime fraHoraInicio) {
-        this.fraHoraInicio = fraHoraInicio;
-    }
-
-    public LocalTime getFraHoraFin() {
-        return fraHoraFin;
-    }
-
-    public void setFraHoraFin(LocalTime fraHoraFin) {
-        this.fraHoraFin = fraHoraFin;
-    }
-
-    public Curso getFraCurso() {
-        return fraCurso;
-    }
-
-    public void setFraCurso(Curso fraCurso) {
-        this.fraCurso = fraCurso;
-    }
-
-    public EspacioFisico getFraEspacioFisico() {
-        return fraEspacioFisico;
-    }
-
-    public void setFraEspacioFisico(EspacioFisico fraEspacioFisico) {
-        this.fraEspacioFisico = fraEspacioFisico;
-    }
-
-    public Docente getFraDocente() {
-        return fraDocente;
-    }
-
-    public void setFraDocente(Docente fraDocente) {
-        this.fraDocente = fraDocente;
-    }
 }
