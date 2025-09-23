@@ -17,7 +17,7 @@ public class Asignatura {
     /** Identificador interno autoincremental. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int asiId;
+    private Long asiId;
 
     /** Nombre único de la asignatura (obligatorio). */
     @Column(nullable = false, unique = true, length = 255)

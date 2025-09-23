@@ -2,6 +2,8 @@ package co.edu.unicauca.asae.taller05.repositories;
 
 import co.edu.unicauca.asae.taller05.domain.FranjaHoraria;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.EntityGraph;
 import java.util.List;
 
@@ -18,7 +20,15 @@ public interface FranjaHorariaRepository extends JpaRepository<FranjaHoraria, Lo
     @EntityGraph(attributePaths = { "fraCurso", "fraEspacioFisico", "fraDocente" })
     List<FranjaHoraria> findByFraCurso_CurId(Long cursoId);
 
-    /** (v 1.0) Consulta de franjas por docente: EAGER solo curso (espacio LAZY). */
-    // @EntityGraph(attributePaths = { "fraCurso" })
-    // List<FranjaHoraria> findByFraDocente_ocId(Long docId);
+    // NUEVO: por docente -> join a través del curso.curDocentes
+    @EntityGraph(attributePaths = { "fraCurso", "fraCurso.curDocentes", "fraEspacioFisico" })
+    @Query("""
+            SELECT f
+              FROM FranjaHoraria f
+              JOIN f.fraCurso c
+              JOIN c.curDocentes d
+             WHERE d.perId = :docId
+            """)
+    List<FranjaHoraria> findByDocenteId(@Param("docId") Long docenteId);
+
 }

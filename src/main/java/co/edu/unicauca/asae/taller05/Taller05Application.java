@@ -21,6 +21,6 @@ public class Taller05Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-
+		svc.crearDocenteConOficina();
 	}
 }

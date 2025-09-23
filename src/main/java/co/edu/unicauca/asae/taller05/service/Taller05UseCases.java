@@ -49,12 +49,13 @@ public class Taller05UseCases {
 
     /** Si no hay asignaturas, crea una. */
     @Transactional
-    public int asegurarAsignaturaBase() {
+    public Long asegurarAsignaturaBase() {
         List<Asignatura> todas = asignaturaRepo.findAll();
         if (!todas.isEmpty())
             return todas.get(0).getAsiId();
         Asignatura a = new Asignatura();
         a.setAsiNombre("Arquitectura de Software");
+        a.setAsiCodigo("ASW-101");
         return asignaturaRepo.save(a).getAsiId();
     }
 
@@ -111,17 +112,21 @@ public class Taller05UseCases {
     }
 
     /** v1.0: Consulta por docente (curso EAGER; espacio LAZY hasta getter). */
-    // @Transactional(readOnly = true)
-    // public void consultarFranjasPorDocente(Long docenteId) {
-    // System.out.println("== Franjas del docente " + docenteId + " ==");
-    // for (FranjaHoraria f : franjaRepo.findByFraDocente_DocId(docenteId)) {
-    // String espacio = f.getFraEspacioFisico().getEspNombre(); // LAZY pero con
-    // sesión abierta
-    // System.out.printf("- %s %s-%s | Curso: %s | Espacio: %s%n",
-    // f.getFraDia(), f.getFraHoraInicio(), f.getFraHoraFin(),
-    // f.getFraCurso().getCurNombre(), espacio);
-    // }
-    // }
+    @Transactional(readOnly = true)
+    public void consultarFranjasPorDocente(Long docenteId) {
+        System.out.println("== Franjas del docente " + docenteId + " ==");
+        franjaRepo.findByDocenteId(docenteId).forEach(f -> {
+            String docentes = f.getFraCurso().getCurDocentes().stream()
+                    .map(d -> d.getPerNombres() + " " + d.getPerApellidos())
+                    .reduce((a, b) -> a + ", " + b)
+                    .orElse("(sin docentes)");
+
+            System.out.printf("- %s %s-%s | Curso: %s | Docentes: %s | Espacio: %s%n",
+                    f.getFraDia(), f.getFraHoraInicio(), f.getFraHoraFin(),
+                    f.getFraCurso().getCurNombre(), docentes,
+                    f.getFraEspacioFisico().getEspNombre());
+        });
+    }
 
     /** v0.5: Eliminar curso (cascade REMOVE borra franjas). */
     @Transactional

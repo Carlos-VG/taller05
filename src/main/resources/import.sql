@@ -1,23 +1,9 @@
--- ===== Asignaturas (IDs autoincrement) =====
-insert into asignatura (
-   asinombre,
-   asicodigo
-) values ( 'Arquitectura de Software',
-           101 );
-insert into asignatura (
-   asinombre,
-   asicodigo
-) values ( 'Bases de Datos II',
-           102 );
+-- ASIGNATURA
+INSERT INTO `asignatura` (`asiNombre`, `asiCodigo`) VALUES ('Programación I', 'PROG1');
 
--- ===== Espacios físicos (IDs autoincrement) =====
-insert into espacio_fisico (
-   espnombre,
-   espcapacidad
-) values ( 'Aula Tulcán 101',
-           40 );
-insert into espacio_fisico (
-   espnombre,
-   espcapacidad
-) values ( 'Laboratorio Redes 2',
-           28 );
+INSERT INTO `asignatura` (`asiNombre`, `asiCodigo`) VALUES ('Estructuras de Datos', 'EDAT2');
+
+-- ESPACIO_FISICO
+INSERT INTO `espacio_fisico` (`espid`, `espnombre`, `espcapacidad`) VALUES ('101', 'Aula Tulcán 101', '40');
+
+INSERT INTO `espacio_fisico` (`espid`, `espnombre`, `espcapacidad`) VALUES ('102', 'Laboratorio Redes 2', '28');
